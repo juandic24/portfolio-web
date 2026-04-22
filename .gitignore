@@ -1,0 +1,21 @@
+# .NET
+**/bin/
+**/obj/
+**/*.user
+**/.vs/
+**/*.db
+**/*.db-shm
+**/*.db-wal
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# Docker
+.env
+
+# OS
+.DS_Store
+Thumbs.db
