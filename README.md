@@ -1,5 +1,7 @@
 # Juan Diego Cortés — Developer Portfolio
 
+**Live:** https://portfoliojdc.up.railway.app
+
 Personal portfolio website built with a retro RPG / terminal aesthetic. Features a React frontend served via Nginx, a REST API backend in ASP.NET Core, and a PostgreSQL database — all containerized with Docker Compose.
 
 ---
@@ -21,7 +23,7 @@ Personal portfolio website built with a retro RPG / terminal aesthetic. Features
 
 - Retro terminal/RPG aesthetic — Press Start 2P font, CRT scanlines, pixel borders, chiptune music synthesized via Web Audio API
 - Dynamic projects section — content served from the REST API
-- Contact form — stores messages in the database and sends email notifications via SMTP
+- Contact form — stores messages in the database and sends email notifications via Resend (HTTP API)
 - JWT-protected admin endpoints for managing projects (CRUD)
 - Rate limiting on contact (5 req / 10 min) and login (10 req / 5 min) endpoints
 - Nginx reverse proxy — frontend and API served from the same origin under `/api/`
@@ -104,12 +106,10 @@ JWT_SECRET=your-random-secret-min-32-chars
 JWT_ISSUER=portfolio-api
 JWT_AUDIENCE=portfolio-client
 
-# SMTP (Gmail example — use an App Password, not your account password)
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your@email.com
-SMTP_PASS=your-app-password
-CONTACT_RECEIVER=your@email.com
+# Resend (https://resend.com) — HTTP-based email delivery
+RESEND_API_KEY=re_your_api_key
+RESEND_FROM=Portfolio Contact <you@yourdomain.com>
+RESEND_CONTACT_RECEIVER=your@email.com
 
 # Admin account for managing projects via the API
 ADMIN_EMAIL=your-admin@email.com
