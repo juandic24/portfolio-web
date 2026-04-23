@@ -22,9 +22,23 @@ public class ContactService(IContactRepository repo, IConfiguration config, ILog
         {
             await SendEmailAsync(dto);
         }
+        catch (MailKit.Net.Smtp.SmtpCommandException ex)
+        {
+            logger.LogError(ex, "SMTP command rejected (status {Status}) for {Email}", ex.StatusCode, dto.Email);
+        }
+        catch (MailKit.Net.Smtp.SmtpProtocolException ex)
+        {
+            logger.LogError(ex, "SMTP protocol error for {Email}", dto.Email);
+        }
+        catch (System.Net.Sockets.SocketException ex)
+        {
+            logger.LogError(ex, "SMTP connection failed to {Host}:{Port} — port may be blocked",
+                config["Smtp:Host"], config["Smtp:Port"]);
+        }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, "Email delivery failed for contact from {Email}", dto.Email);
+            logger.LogError(ex, "Email delivery failed for {Email}: {Type} — {Message}",
+                dto.Email, ex.GetType().Name, ex.Message);
         }
     }
 
@@ -46,6 +60,8 @@ public class ContactService(IContactRepository repo, IConfiguration config, ILog
         {
             Text = $"Name: {dto.Name}\nEmail: {dto.Email}\n\nMessage:\n{dto.Message}"
         };
+
+        logger.LogInformation("Sending email via {Host}:{Port} as {User}", smtpHost, smtpPort, smtpUser);
 
         using var client = new SmtpClient();
         await client.ConnectAsync(smtpHost, smtpPort, MailKit.Security.SecureSocketOptions.StartTls);
