@@ -47,10 +47,27 @@ public class ContactService(IContactRepository repo, IConfiguration config, ILog
             Text = $"Nombre: {dto.Name}\nEmail: {dto.Email}\n\nMensaje:\n{dto.Message}"
         };
 
+        logger.LogInformation(
+            "Attempting SMTP connection — Host: {Host}, Port: {Port}, User: {User}",
+            smtpHost, smtpPort, smtpUser);
+
         using var client = new SmtpClient();
-        await client.ConnectAsync(smtpHost, smtpPort, MailKit.Security.SecureSocketOptions.StartTls);
-        await client.AuthenticateAsync(smtpUser, smtpPass ?? string.Empty);
-        await client.SendAsync(email);
-        await client.DisconnectAsync(true);
+        try
+        {
+            await client.ConnectAsync(smtpHost, smtpPort, MailKit.Security.SecureSocketOptions.StartTls);
+            await client.AuthenticateAsync(smtpUser, smtpPass ?? string.Empty);
+            await client.SendAsync(email);
+            await client.DisconnectAsync(true);
+        }
+        catch (Exception ex)
+        {
+            var inner = ex.InnerException;
+            logger.LogError(
+                ex,
+                "SMTP operation failed — {Message}{InnerMessage}",
+                ex.Message,
+                inner is not null ? $" | Inner: {inner.Message}" : string.Empty);
+            throw;
+        }
     }
 }
