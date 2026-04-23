@@ -196,3 +196,9 @@ Set all environment variables from the [Environment Variables](#environment-vari
 
 **Juan Diego Cortés** — Backend Developer · C# / .NET  
 [GitHub](https://github.com/juandic24) · [LinkedIn](https://www.linkedin.com/in/juan-diego-cortestorres/)
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE)
