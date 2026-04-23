@@ -31,7 +31,7 @@ public class ContactService(IContactRepository repo, IConfiguration config, ILog
     private async Task SendEmailAsync(ContactRequestDto dto)
     {
         var smtpHost = config["Smtp:Host"];
-        var smtpPort = int.Parse(config["Smtp:Port"] ?? "587");
+        var smtpPort = int.TryParse(config["Smtp:Port"], out var port) ? port : 587;
         var smtpUser = config["Smtp:User"];
         var smtpPass = config["Smtp:Pass"];
         var receiver = config["Smtp:ContactReceiver"];
@@ -40,11 +40,11 @@ public class ContactService(IContactRepository repo, IConfiguration config, ILog
 
         var email = new MimeMessage();
         email.From.Add(new MailboxAddress("Portfolio Contact", smtpUser));
-        email.To.Add(MailboxAddress.Parse(receiver ?? smtpUser));
-        email.Subject = $"[Portfolio] Mensaje de {dto.Name}";
+        email.To.Add(MailboxAddress.Parse(string.IsNullOrEmpty(receiver) ? smtpUser : receiver));
+        email.Subject = $"[Portfolio] New message from {dto.Name}";
         email.Body = new TextPart("plain")
         {
-            Text = $"Nombre: {dto.Name}\nEmail: {dto.Email}\n\nMensaje:\n{dto.Message}"
+            Text = $"Name: {dto.Name}\nEmail: {dto.Email}\n\nMessage:\n{dto.Message}"
         };
 
         using var client = new SmtpClient();
