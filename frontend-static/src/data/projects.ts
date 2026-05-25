@@ -9,7 +9,7 @@ export const projects: Project[] = [
       'Designed and implemented a personal website integrating a C#/.NET Core API backend with a React + TypeScript frontend into a single production deployment. Applied Tailwind CSS to build a modern, responsive UI without relying on external component libraries. Features a contact form, JWT-protected admin panel, chiptune music via Web Audio API, and Docker-based deployment.',
     technologies: ['C#', '.NET', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker', 'Entity Framework Core'],
     gitHubUrl: 'https://github.com/juandic24/portfolio-web',
-    liveUrl: 'https://juandic24.github.io/portfolio/',
+    liveUrl: 'https://juandic24.github.io/portfolio-web/',
     isFeatured: true,
     createdAt: '2026-04-01T00:00:00Z',
   },

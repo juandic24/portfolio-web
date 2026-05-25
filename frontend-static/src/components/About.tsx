@@ -110,7 +110,7 @@ export default function About() {
               </div>
             </div>
 
-            <a href="/cv.pdf"
+            <a href={`${import.meta.env.BASE_URL}cv.pdf`}
               className="pixel-btn pixel-btn-gold text-[7px] inline-block">
               ↓ DOWNLOAD CV
             </a>
