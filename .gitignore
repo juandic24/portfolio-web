@@ -12,6 +12,13 @@ frontend/node_modules/
 frontend/dist/
 frontend/.env
 frontend/.env.local
+frontend-static/node_modules/
+frontend-static/dist/
+frontend-static/.env
+frontend-static/.env.local
+
+# Claude
+CLAUDE.md
 
 # Docker
 .env

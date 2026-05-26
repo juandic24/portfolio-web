@@ -1,8 +1,17 @@
 # Juan Diego Cortés — Developer Portfolio
 
-**Live:** https://portfoliojdc.up.railway.app
+**Live (static):** https://juandic24.github.io/portfolio-web/
 
-Personal portfolio website built with a retro RPG / terminal aesthetic. Features a React frontend served via Nginx, a REST API backend in ASP.NET Core, and a PostgreSQL database — all containerized with Docker Compose.
+Personal portfolio website with a retro RPG / terminal aesthetic. The repo contains two versions: a full-stack version (React + ASP.NET Core + PostgreSQL + Docker) and a static version deployed to GitHub Pages.
+
+---
+
+## Versions
+
+| Version | Folder | Deployment | Description |
+|---|---|---|---|
+| Full-stack | `frontend/` + `backend/` | Docker / Railway | React frontend + ASP.NET Core API + PostgreSQL |
+| Static | `frontend-static/` | GitHub Pages | React frontend with static data + Web3Forms |
 
 ---
 
@@ -16,14 +25,16 @@ Personal portfolio website built with a retro RPG / terminal aesthetic. Features
 | Auth | JWT Bearer tokens |
 | Reverse proxy | Nginx |
 | Containerization | Docker, Docker Compose |
+| Static deployment | GitHub Pages, GitHub Actions |
+| Contact (static) | Web3Forms |
 
 ---
 
 ## Features
 
 - Retro terminal/RPG aesthetic — Press Start 2P font, CRT scanlines, pixel borders, chiptune music synthesized via Web Audio API
-- Dynamic projects section — content served from the REST API
-- Contact form — stores messages in the database and sends email notifications via Resend (HTTP API)
+- Projects section — served from the REST API (full-stack) or static data file (static)
+- Contact form — stores messages in the DB and sends email via Resend (full-stack) or submits via Web3Forms (static)
 - JWT-protected admin endpoints for managing projects (CRUD)
 - Rate limiting on contact (5 req / 10 min) and login (10 req / 5 min) endpoints
 - Nginx reverse proxy — frontend and API served from the same origin under `/api/`
@@ -36,6 +47,9 @@ Personal portfolio website built with a retro RPG / terminal aesthetic. Features
 portfolio/
 ├── docker-compose.yml
 ├── .env.example
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # Builds frontend-static/ and deploys to gh-pages
 ├── backend/
 │   └── Portfolio.API/
 │       ├── Controllers/
@@ -46,12 +60,22 @@ portfolio/
 │       ├── Data/
 │       ├── Migrations/
 │       └── Program.cs
-└── frontend/
-    ├── nginx.conf.template
+├── frontend/                   # Full-stack version (connects to the API)
+│   ├── nginx.conf.template
+│   ├── public/
+│   │   └── cv.pdf
+│   └── src/
+│       ├── components/
+│       ├── hooks/
+│       ├── services/
+│       └── types/
+└── frontend-static/            # Static version (GitHub Pages)
     ├── public/
     │   └── cv.pdf
     └── src/
         ├── components/
+        ├── data/
+        │   └── projects.ts     # Project data (edit here to add/update projects)
         ├── hooks/
         ├── services/
         └── types/
@@ -61,19 +85,17 @@ portfolio/
 
 ## Running Locally
 
-### Prerequisites
+### Full-stack version
 
-- Docker Desktop
-
-### Setup
+**Prerequisites:** Docker Desktop
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/juandic24/portfolio.git
-   cd portfolio
+   git clone https://github.com/juandic24/portfolio-web.git
+   cd portfolio-web
    ```
 
-2. Create your environment file from the example:
+2. Create your environment file:
    ```bash
    cp .env.example .env
    ```
@@ -89,9 +111,27 @@ portfolio/
 
 > If you previously ran the project and changed database credentials, run `docker-compose down -v` first to reset the PostgreSQL volume.
 
+### Static version
+
+**Prerequisites:** Node.js 20+
+
+1. Create `frontend-static/.env.local` with your Web3Forms key:
+   ```env
+   VITE_WEB3FORMS_KEY=your_key_here
+   ```
+
+2. Install dependencies and start the dev server:
+   ```bash
+   cd frontend-static
+   npm install
+   npm run dev
+   ```
+
 ---
 
 ## Environment Variables
+
+### Full-stack (`.env`)
 
 Copy `.env.example` to `.env` and configure each value:
 
@@ -115,6 +155,14 @@ RESEND_CONTACT_RECEIVER=your@email.com
 ADMIN_EMAIL=your-admin@email.com
 ADMIN_PASSWORD=your-admin-password
 ```
+
+### Static (`frontend-static/.env.local`)
+
+```env
+VITE_WEB3FORMS_KEY=your_web3forms_access_key
+```
+
+For GitHub Actions deployment, add `WEB3FORMS_KEY` as a repository secret (Settings → Secrets and variables → Actions).
 
 ---
 
@@ -149,41 +197,16 @@ ADMIN_PASSWORD=your-admin-password
 
 ---
 
-## Seeding Projects
-
-After the API is running, authenticate first to get a token:
-
-```bash
-curl -X POST http://localhost:8080/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email": "your-admin@email.com", "password": "your-admin-password"}'
-```
-
-Then create a project using the returned token:
-
-```bash
-curl -X POST http://localhost:8080/api/projects \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-    "title": "Project Name",
-    "shortDescription": "One-line description shown on the card.",
-    "fullDescription": "Full description shown in the modal.",
-    "technologies": ["C#", ".NET", "PostgreSQL", "Docker"],
-    "gitHubUrl": "https://github.com/juandic24/repo",
-    "liveUrl": null,
-    "imageUrl": null,
-    "isFeatured": true
-  }'
-```
-
----
-
 ## Deployment
+
+### Static (GitHub Pages)
+
+Pushes to `main` that include changes under `frontend-static/` trigger the GitHub Actions workflow (`.github/workflows/deploy.yml`), which builds the app and deploys it to the `gh-pages` branch automatically.
+
+### Full-stack (Docker)
 
 The project is designed to be deployed as three separate services — frontend, API, and database — on a platform that supports Docker (e.g., Railway).
 
-Each service maps to a subfolder:
 - **Frontend**: `frontend/` — Nginx container, serves the React build and proxies `/api/` to the backend
 - **Backend**: `backend/Portfolio.API/` — ASP.NET Core container, runs EF Core migrations on startup
 - **Database**: PostgreSQL managed instance
