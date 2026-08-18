@@ -2,6 +2,30 @@ import type { Project } from '../types';
 
 export const projects: Project[] = [
   {
+    id: 8,
+    title: 'Counselor',
+    shortDescription: 'PWA for a school counselor to track student guidance cases across three campuses, built with React + Firebase and running in production for a real user.',
+    fullDescription:
+      'Tool built so a school counselor working across three campuses never loses track of her cases: who is due for a session today and who has gone too long without contact. Developed for a real user and deployed to production for her. Layered architecture with the repository pattern: the UI never talks to Firebase directly, so the same codebase runs against Firestore or localStorage, which makes the public demo a build flag instead of a fork that drifts out of date. Optimized for the user\'s actual device (a low-end Android): uncontrolled forms, per-route code splitting, and cacheable chunks. Stripped 495 kB of never-executed Firebase SDK from the public bundle (precache 776 to 294 KiB). Firestore security rules use an allowlist, are versioned, and are validated with the emulator: since the data concerns minors, being signed in is not enough to read it.',
+    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Firebase', 'Firestore', 'Zustand', 'React Hook Form', 'PWA'],
+    gitHubUrl: 'https://github.com/juandic24/Counselor',
+    liveUrl: 'https://counselorapp.netlify.app/',
+    isFeatured: true,
+    createdAt: '2026-07-01T00:00:00Z',
+  },
+  {
+    id: 9,
+    title: 'JC Soluciones Energéticas',
+    shortDescription: 'Corporate website and brand identity for a solar installation business, built with Next.js 16 and deployed on Vercel.',
+    fullDescription:
+      'Designed and implemented the website and brand identity for a solar installation business. Content is centralized in a single source of truth so the owner, who is non-technical, can manage the site without touching component code. Built with Next.js 16, React 19, TypeScript, and Tailwind v4, and running in production on Vercel.',
+    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel'],
+    gitHubUrl: 'https://github.com/juandic24/jc-soluciones-energeticas',
+    liveUrl: 'https://jc-soluciones-energeticas.vercel.app',
+    isFeatured: true,
+    createdAt: '2026-06-01T00:00:00Z',
+  },
+  {
     id: 1,
     title: 'Full Stack Portfolio Website',
     shortDescription: 'Personal portfolio with a C#/.NET backend and a React + TypeScript frontend, deployed as a single production unit.',
