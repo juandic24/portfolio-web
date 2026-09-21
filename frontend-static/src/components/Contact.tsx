@@ -73,7 +73,7 @@ export default function Contact() {
                   &gt; EMAIL:
                 </label>
                 <input name="email" type="email" value={form.email} onChange={handleChange}
-                  placeholder="tu@correo.com" required
+                  placeholder="you@email.com" required
                   className="retro-input" />
               </div>
               <div>

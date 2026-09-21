@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const TITLE_LINES = ['JUAN DIEGO', 'CORTÉS'];
+const TITLE_LINES = ['JUAN DIEGO', 'CORTES'];
 const SUBTITLE = 'Backend Developer · C# / .NET · REST APIs';
 
 export default function Hero() {

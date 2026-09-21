@@ -1,16 +1,21 @@
 const stack = [
-  { name: 'C#',              lvl: 60 },
-  { name: '.NET 8',          lvl: 60 },
-  { name: 'ASP.NET Core',    lvl: 60 },
-  { name: 'Entity Framework',lvl: 60 },
-  { name: 'PostgreSQL',      lvl: 60 },
-  { name: 'Docker',          lvl: 60 },
-  { name: 'JWT / Auth',      lvl: 50 },
-  { name: 'REST APIs',       lvl: 70 },
-  { name: 'Git / GitHub',    lvl: 70 },
-  { name: 'SQL',             lvl: 60 },
-  { name: 'Microservices',   lvl: 70 },
-  { name: 'Linux / Bash',    lvl: 60 },
+  { name: 'C#',               lvl: 80 },
+  { name: 'Java',             lvl: 80 },
+  { name: 'Python',           lvl: 70 },
+  { name: '.NET / ASP.NET',   lvl: 80 },
+  { name: 'REST APIs',        lvl: 90 },
+  { name: 'Entity Framework', lvl: 75 },
+  { name: 'PostgreSQL',       lvl: 70 },
+  { name: 'Docker',           lvl: 70 },
+  { name: 'Git / GitHub',     lvl: 90 },
+  { name: 'JWT / Auth',       lvl: 70 },
+  { name: 'Microservices',    lvl: 70 },
+  { name: 'SQL',              lvl: 70 },
+  { name: 'React / TS',       lvl: 65 },
+  { name: 'Linux / Bash',     lvl: 60 },
+  { name: 'Next.js',          lvl: 55 },
+  { name: 'Firebase',         lvl: 55 },
+  { name: 'Spring Boot',      lvl: 55 },
 ];
 
 const languages = [
@@ -61,27 +66,30 @@ export default function About() {
             ─── CHARACTER ───
           </p>
           <h2 className="glow-text" style={{ fontSize: 'clamp(14px, 3vw, 24px)' }}>
-            JUAN DIEGO CORTÉS
+            JUAN DIEGO CORTES
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
 
           {/* Bio card */}
-          <div className="rpg-box p-6">
+          <div className="rpg-box p-6 flex flex-col">
             <p className="pixel-font text-[8px] mb-4" style={{ color: 'var(--gold)' }}>
               ◆ STORY
             </p>
             <p className="text-[19px] mb-4" style={{ color: 'var(--green)' }}>
-              Backend Developer with a background in{' '}
-              <span style={{ color: 'var(--cyan)' }}>Systems Engineering</span>,
-              specializing in robust and scalable REST APIs with{' '}
-              <span style={{ color: 'var(--cyan)' }}>C# and .NET</span>.
+              I build <span style={{ color: 'var(--cyan)' }}>REST APIs</span> and
+              full-stack tools that ship to production &mdash; not just portfolios.
+            </p>
+            <p className="text-[19px] mb-4" style={{ color: 'var(--green)' }}>
+              Specialized in backend development with{' '}
+              <span style={{ color: 'var(--cyan)' }}>C# / .NET, Java and Python</span>,
+              with hands-on experience in layered architectures, microservices,
+              JWT authentication, and Docker. On the frontend I work with{' '}
+              <span style={{ color: 'var(--cyan)' }}>React and TypeScript</span>.
             </p>
             <p className="text-[19px] mb-6" style={{ color: 'var(--green)' }}>
-              Hands-on experience with layered architectures, microservices,
-              JWT authentication, and Docker containerization. Clean,
-              well-structured, production-ready code.
+              Clean, structured, production-ready code from the first commit.
             </p>
 
             {/* Stat chips */}
@@ -111,7 +119,7 @@ export default function About() {
             </div>
 
             <a href={`${import.meta.env.BASE_URL}cv.pdf`}
-              className="pixel-btn pixel-btn-gold text-[7px] inline-block">
+              className="pixel-btn pixel-btn-gold text-[7px] self-start mt-auto">
               ↓ DOWNLOAD CV
             </a>
           </div>

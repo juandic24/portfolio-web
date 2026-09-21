@@ -23,7 +23,7 @@ export default function ProjectCard({ project, onClick }: Props) {
                     className="pixel-font text-[6px] px-2 py-1 mb-3 inline-block glow-gold"
                     style={{ border: '1px solid var(--gold)', color: 'var(--gold)' }}
                 >
-                    ★ DESTACADO
+                    ★ FEATURED
                 </span>
             )}
 

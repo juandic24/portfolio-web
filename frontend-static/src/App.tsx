@@ -17,7 +17,7 @@ function App() {
       </main>
       <footer style={{ borderTop: '2px solid var(--border)', padding: '24px 0', textAlign: 'center' }}>
         <p className="pixel-font text-[6px]" style={{ color: 'var(--green-dim)' }}>
-          © {new Date().getFullYear()} &nbsp;·&nbsp; JUAN DIEGO CORTÉS &nbsp;·&nbsp; BACKEND DEVELOPER
+          © {new Date().getFullYear()} &nbsp;·&nbsp; JUAN DIEGO CORTES &nbsp;·&nbsp; BACKEND DEVELOPER
         </p>
       </footer>
     </>
